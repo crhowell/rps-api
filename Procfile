@@ -1,0 +1,1 @@
+web: gunicorn rps_backend.wsgi --timeout 10 --max-requests 1000
