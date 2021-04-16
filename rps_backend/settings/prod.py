@@ -100,7 +100,8 @@ LOGGING = {
         },
     }
 }
+
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split()
-True if os.envion..get('CORS_ALLOW_ALL_ORIGINS', 0)
-CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', 0)
+allow_all_origins = True if os.envion.get('CORS_ALLOW_ALL_ORIGINS', 0) else False
+CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', allow_all_origins)
 django_heroku.settings(locals())
