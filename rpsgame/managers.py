@@ -14,7 +14,7 @@ class GameRoundManager(models.Manager):
         """
         return self.aggregate(
             games_played=Count('pk'),
-            unique_plays=Count('creator', distinct=True),
+            unique_players=Count('creator', distinct=True),
             human_wins=Count('pk', filter=Q(player_has_won=True)),
             human_losses=Count('pk', filter=Q(player_has_won=False)),
             bot_wins=Count('pk', filter=Q(player_has_won=False)),

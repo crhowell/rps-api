@@ -6,7 +6,9 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rps_backend.settings.dev')
+    # To support manage.py commands with heroku commands.
+    env = os.environ.get('DJENV', 'dev')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', f'rps_backend.settings.{env}')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
