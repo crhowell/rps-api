@@ -9,7 +9,7 @@ import django_heroku
 # We dont want Django debug messages showing up in production
 # | this can expose your underlying system to the public.
 DEBUG = False
-
+SECRET_KEY = os.environ.get('SECRET_KEY')
 # TODO: We will change this when we deploy.
 # | '<heroku app url>' goes in place of '*'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
