@@ -14,6 +14,14 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # | '<heroku app url>' goes in place of '*'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'rest_framework',
+    'accounts', 
+    'rpsgame',
+]
+
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
