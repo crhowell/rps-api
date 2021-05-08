@@ -69,6 +69,12 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, 'public', 'static')
+]
+
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split()
 allow_all_origins = True if os.environ.get('CORS_ALLOW_ALL_ORIGINS', 0) else False
 CORS_ALLOW_ALL_ORIGINS = os.environ.get('CORS_ALLOW_ALL_ORIGINS', allow_all_origins)
