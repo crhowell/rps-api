@@ -1,7 +1,10 @@
 import datetime
 from pathlib import Path
+import os
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = BASE_DIR.parent
 
 SECRET_KEY = None
 
@@ -36,7 +39,21 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'rps_backend.urls'
 
-TEMPLATES = []
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(PROJECT_DIR, 'templates')],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 WSGI_APPLICATION = 'rps_backend.wsgi.application'
 
@@ -121,4 +138,11 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=86400), # 1 day
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    'JWT_ALLOW_REFRESH': True
 }
+
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'public', 'static')
+# STATICFILES_DIRS = [
+#     os.path.join(PROJECT_DIR, 'public', 'static')
+# ]
+

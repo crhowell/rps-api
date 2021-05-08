@@ -22,6 +22,7 @@ def current_user(request):
         total_wins=Count('pk', filter=Q(player_has_won=True)),
         total_losses=Count('pk', filter=Q(player_has_won=False)),
         total_ties=Count('pk', filter=Q(player_has_won=None)),
+        total_games=Count('pk')
     )
     serializer = serializers.UserSerializer(request.user)
     games.update(serializer.data)
@@ -50,5 +51,6 @@ def user_profile(request):
         total_wins=Count('pk', filter=Q(player_has_won=True)),
         total_losses=Count('pk', filter=Q(player_has_won=False)),
         total_ties=Count('pk', filter=Q(player_has_won=None)),
+        total_games=Count('pk')
     )
     return Response(games)

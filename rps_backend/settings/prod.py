@@ -8,10 +8,17 @@ import django_heroku
 
 # We dont want Django debug messages showing up in production
 # | this can expose your underlying system to the public.
+# | but if for some reason we needed them we can set Heroku Config var.
 DEBUG = os.environ.get('DEBUG', 0)
-SECRET_KEY = os.environ.get('SECRET_KEY')
-# TODO: We will change this when we deploy.
-# | '<heroku app url>' goes in place of '*'
+
+
+SECRET_KEY = os.environ.get('SECRET_KEY') # Lets Django read Heroku Config Vars
+
+# Heroku Config Var would store:
+# | ALLOWED_HOST : chrisrh-rps-api.herokuapp.com
+# | Django reads it in: 'chrisrh-rps-api.herokuapp.com'.split()
+# | produces this ['chrisrh-rps-api.herokuapp.com']
+# | otherwise if Config Var is missing its ''.split() -> []
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split()
 
 INSTALLED_APPS = [
@@ -60,45 +67,6 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600), # 1 hour
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
-}
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': ('%(asctime)s [%(process)d] [%(levelname)s] '
-                       'pathname=%(pathname)s lineno=%(lineno)s '
-                       'funcname=%(funcName)s %(message)s'),
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        }
-    },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': False,
-        },
-    }
 }
 
 CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS', '').split()

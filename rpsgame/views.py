@@ -1,4 +1,4 @@
-
+from django.shortcuts import render
 from django.db.models import Count, F, Func, Q, Subquery
 from django.views.decorators.csrf import csrf_exempt
 
@@ -23,6 +23,7 @@ def all_games(request):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     # GET requests
     games = models.GameRound.objects.all_game_stats()
